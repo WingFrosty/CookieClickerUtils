@@ -36,16 +36,86 @@ CCUtils.clickBigCookie = function() {
 }
 
 // ======================================
-// Golden Cookies
+// Special Cookies (Shimmers)
 // ======================================
+CCUtils.getSpecialCookies = function() {
+    return Game.shimmers;
+}
+
+CCUtils.isSpecialCookieGolden = function(shimmer) {
+    if (shimmer && shimmer.type == "golden" && shimmer.wrath == 0){
+        return true;
+    }
+    return false;
+}
+
+CCUtils.isSpecialCookieWrath = function(shimmer) {
+    if (shimmer && shimmer.type == "golden" && shimmer.wrath == 1){
+        return true;
+    }
+    return false;
+}
+
+CCUtils.isSpecialCookieReindeer = function(shimmer) {
+    if (shimmer && shimmer.type == "reindeer"){
+        return true;
+    }
+    return false;
+}
+
+CCUtils.clickSpecialCookie = function(shimmer) {
+    if (shimmer) {
+        shimmer.pop();
+    }
+}
+
+CCUtils.clickAllSpecialCookies = function(clickGoldenCookie = true, clickWrathCookie = true, clickReindeer = true) {
+    var shimmers = CCUtils.getSpecialCookies();
+
+    for (var i = 0; i < shimmers.length; i++) {
+        shimmer = shimmers[i];
+        
+        if (CCUtils.isSpecialCookieGolden(shimmer) && clickGoldenCookie) {
+            CCUtils.clickSpecialCookie(shimmer);
+        }
+        else if (CCUtils.isSpecialCookieWrath(shimmer) && clickWrathCookie) {
+            CCUtils.clickSpecialCookie(shimmer);
+        }
+        else if (CCUtils.isSpecialCookieReindeer(shimmer) && clickReindeer) {
+            CCUtils.clickSpecialCookie(shimmer);
+        }
+    }
+}
 
 // ======================================
 // Lumps
 // ======================================
+CCUtils.getLumpAge = function() {
+    var age = Date.now() - Game.lumpT;
+
+    return age;
+}
+
+CCUtils.clickLump = function(clickWhenRipe = true) {
+    //If clicked when mature but not ripe there's a 50% chance that nothing will be harvested
+    var age = CCUtils.getLumpAge();
+
+    if (clickWhenRipe && age >= Game.lumpRipeAge) {
+        Game.clickLump();
+    }
+    else if (!clickWhenRipe && age >= Game.lumpMatureAge) {
+        Game.clickLump();
+    }
+}
 
 // ======================================
 // News Ticker
 // ======================================
+CCUtils.clickFortuneNews = function() {
+    if (Game.TickerEffect) {
+        Game.tickerL.click();
+    }
+}
 
 // ======================================
 // Menus
