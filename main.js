@@ -118,6 +118,24 @@ CCUtils.clickFortuneNews = function() {
 }
 
 // ======================================
+// Buildings
+// ======================================
+CCUtils.getBuildings = function() {
+    return Game.ObjectsById;
+}
+
+// ======================================
+// Upgrades
+// ======================================
+CCUtils.getUpgrades = function() {
+    return Game.UpgradesById;
+}
+
+CCUtils.getAvailableUpgrades = function() {
+    return Game.UpgradesInStore;
+}
+
+// ======================================
 // Menus
 // ======================================
 CCUtils.menu = {

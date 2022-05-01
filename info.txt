@@ -3,7 +3,7 @@
 	"ID": "ccutils",
 	"Author": "WingFrost",
 	"Description": "Utility functions for use in other mods",
-	"ModVersion": 0.1,
+	"ModVersion": 1.1,
 	"GameVersion": 2.043,
 	"Date": "16/01/2022",
 	"Dependencies": ["CCSE"],
