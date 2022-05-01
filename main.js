@@ -125,7 +125,7 @@ CCUtils.getBuildings = function() {
 }
 
 CCUtils.buyBuilding = function(building) {
-    if (building) {
+    if (building && building.price <= Game.cookies) {
         building.buy();
     }
 }
@@ -149,6 +149,7 @@ CCUtils.getCheapestBuilding = function() {
     if (cheapestBuilding) {
         result = {
             object: cheapestBuilding,
+            type: "building",
             name: cheapestBuilding.name,
             price: cheapestBuilding.price,
             score: cheapestBuilding.price
@@ -170,7 +171,7 @@ CCUtils.getAvailableUpgrades = function() {
 }
 
 CCUtils.buyUpgrade = function(upgrade) {
-    if (upgrade) {
+    if (upgrade && upgrade.basePrice <= Game.cookies) {
         upgrade.buy();
     }
 }
@@ -196,6 +197,7 @@ CCUtils.getCheapestUpgrade = function() {
     if (cheapestUpgrade) {
         result = {
             object: cheapestUpgrade,
+            type: "upgrade",
             name: cheapestUpgrade.name,
             price: cheapestUpgrade.basePrice,
             score: cheapestUpgrade.basePrice
