@@ -111,7 +111,7 @@ CCUtils.clickLump = function(clickWhenRipe = true) {
 // ======================================
 // News Ticker
 // ======================================
-CCUtils.clickFortuneNews = function() {
+CCUtils.clickFortuneNewsTicker = function() {
     if (Game.TickerEffect) {
         Game.tickerL.click();
     }
@@ -124,6 +124,40 @@ CCUtils.getBuildings = function() {
     return Game.ObjectsById;
 }
 
+CCUtils.buyBuilding = function(building) {
+    if (building) {
+        building.buy();
+    }
+}
+
+CCUtils.getCheapestBuilding = function() {
+    var result = null;
+    var cheapestBuilding = null;
+    var buildings = CCUtils.getBuildings();
+    
+    for (var i = 0; i < buildings.length; i++) {
+        if (!cheapestBuilding) {
+            cheapestBuilding = buildings[i];
+        }
+        else {
+            if (buildings[i].price < cheapestBuilding.price) {
+                cheapestBuilding = buildings[i];
+            }
+        }
+    }
+
+    if (cheapestBuilding) {
+        result = {
+            object: cheapestBuilding,
+            name: cheapestBuilding.name,
+            price: cheapestBuilding.price,
+            score: cheapestBuilding.price
+        }
+    }
+    
+    return result;
+}
+
 // ======================================
 // Upgrades
 // ======================================
@@ -133,6 +167,42 @@ CCUtils.getUpgrades = function() {
 
 CCUtils.getAvailableUpgrades = function() {
     return Game.UpgradesInStore;
+}
+
+CCUtils.buyUpgrade = function(upgrade) {
+    if (upgrade) {
+        upgrade.buy();
+    }
+}
+
+CCUtils.getCheapestUpgrade = function() {
+    var result = null;
+    var cheapestUpgrade = null;
+    var upgrades = CCUtils.getAvailableUpgrades();
+    
+    for (var i = 0; i < upgrades.length; i++) {
+        if (upgrades[i].pool != "toggle") {
+            if (!cheapestUpgrade) {
+                cheapestUpgrade = upgrades[i];
+            }
+            else {
+                if (upgrades[i].basePrice < cheapestUpgrade.basePrice) {
+                    cheapestUpgrade = upgrades[i];
+                }
+            }
+        }
+    }
+
+    if (cheapestUpgrade) {
+        result = {
+            object: cheapestUpgrade,
+            name: cheapestUpgrade.name,
+            price: cheapestUpgrade.basePrice,
+            score: cheapestUpgrade.basePrice
+        }
+    }
+    
+    return result;
 }
 
 // ======================================
