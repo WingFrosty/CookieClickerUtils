@@ -126,7 +126,10 @@ CCUtils.getBuildings = function() {
 
 CCUtils.buyBuilding = function(building) {
     var bought = 0;
-    bought = building.buy();
+    if (Game.cookies >= building.getPrice()) {
+        building.buy(); //change when they add a result to the function => bought = building.buy();
+        bought = 1;
+    }
     if (bought == 1) {
         console.log("Bought " + "building" + ": " + building.name);
     }
