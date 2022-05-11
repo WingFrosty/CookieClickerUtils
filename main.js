@@ -125,23 +125,29 @@ CCUtils.getBuildings = function() {
 }
 
 CCUtils.buyBuilding = function(building) {
-    if (building && building.price <= Game.cookies) {
-        building.buy();
+    var bought = 0;
+    bought = building.buy();
+    if (bought == 1) {
+        console.log("Bought " + "building" + ": " + building.name);
     }
 }
 
 CCUtils.getCheapestBuilding = function() {
     var result = null;
     var cheapestBuilding = null;
+    var cheapestBuildingPrice = null;
     var buildings = CCUtils.getBuildings();
     
     for (var i = 0; i < buildings.length; i++) {
+        var buildingPrice = buildings[i].getPrice();
         if (!cheapestBuilding) {
             cheapestBuilding = buildings[i];
+            cheapestBuildingPrice = buildingPrice;
         }
         else {
-            if (buildings[i].price < cheapestBuilding.price) {
+            if (buildingPrice < cheapestBuildingPrice) {
                 cheapestBuilding = buildings[i];
+                cheapestBuildingPrice = buildingPrice;
             }
         }
     }
@@ -151,8 +157,8 @@ CCUtils.getCheapestBuilding = function() {
             object: cheapestBuilding,
             type: "building",
             name: cheapestBuilding.name,
-            price: cheapestBuilding.price,
-            score: cheapestBuilding.price
+            price: cheapestBuildingPrice,
+            score: cheapestBuildingPrice
         }
     }
     
@@ -171,24 +177,36 @@ CCUtils.getAvailableUpgrades = function() {
 }
 
 CCUtils.buyUpgrade = function(upgrade) {
-    if (upgrade && upgrade.basePrice <= Game.cookies) {
-        upgrade.buy();
+    var bought = 0;
+    bought = upgrade.buy();
+    if (upgrade.name = "One mind") {
+        Game.ConfirmPrompt();
+        bought = 1;
+    }
+
+    if (bought == 1) {
+        console.log("Bought " + "upgrade" + ": " + upgrade.name);
     }
 }
 
 CCUtils.getCheapestUpgrade = function() {
     var result = null;
     var cheapestUpgrade = null;
+    var cheapestUpgradePrice = null;
     var upgrades = CCUtils.getAvailableUpgrades();
     
     for (var i = 0; i < upgrades.length; i++) {
+        var upgradePrice = upgrades[i].getPrice();
+        
         if (upgrades[i].pool != "toggle") {
             if (!cheapestUpgrade) {
                 cheapestUpgrade = upgrades[i];
+                cheapestUpgradePrice = upgradePrice;
             }
             else {
-                if (upgrades[i].basePrice < cheapestUpgrade.basePrice) {
+                if (upgradePrice < cheapestUpgradePrice) {
                     cheapestUpgrade = upgrades[i];
+                    cheapestUpgradePrice = upgradePrice;
                 }
             }
         }
@@ -199,8 +217,8 @@ CCUtils.getCheapestUpgrade = function() {
             object: cheapestUpgrade,
             type: "upgrade",
             name: cheapestUpgrade.name,
-            price: cheapestUpgrade.basePrice,
-            score: cheapestUpgrade.basePrice
+            price: cheapestUpgradePrice,
+            score: cheapestUpgradePrice
         }
     }
     
