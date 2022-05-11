@@ -179,7 +179,7 @@ CCUtils.getAvailableUpgrades = function() {
 CCUtils.buyUpgrade = function(upgrade) {
     var bought = 0;
     bought = upgrade.buy();
-    if (upgrade.name = "One mind") {
+    if (upgrade.name == "One mind") {
         Game.ConfirmPrompt();
         bought = 1;
     }
