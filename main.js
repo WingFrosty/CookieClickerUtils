@@ -192,7 +192,7 @@ CCUtils.buyUpgrade = function(upgrade) {
     }
 }
 
-CCUtils.getCheapestUpgrade = function() {
+CCUtils.getCheapestUpgrade = function(includeVaultedUpgrades=true) {
     var result = null;
     var cheapestUpgrade = null;
     var cheapestUpgradePrice = null;
@@ -201,7 +201,7 @@ CCUtils.getCheapestUpgrade = function() {
     for (var i = 0; i < upgrades.length; i++) {
         var upgradePrice = upgrades[i].getPrice();
         
-        if (upgrades[i].pool != "toggle") {
+        if (upgrades[i].pool != "toggle" && (includeVaultedUpgrades || (!includeVaultedUpgrades && !upgrades[i].isVaulted()))) {
             if (!cheapestUpgrade) {
                 cheapestUpgrade = upgrades[i];
                 cheapestUpgradePrice = upgradePrice;
