@@ -215,7 +215,7 @@ CCUtils.getCheapestUpgrade = function(includeVaultedUpgrades=true) {
         }
     }
 
-    if (cheapestUpgrade) {
+    if (cheapestUpgrade != null) {
         result = {
             object: cheapestUpgrade,
             type: "upgrade",
